@@ -12,3 +12,18 @@ import "bootstrap/dist/js/bootstrap"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+document.addEventListener('turbolinks:load', () => {
+    const search = document.getElementById('language-search')
+    const tableRows = document.querySelectorAll('#language-tbody tr')
+
+    const filterTableRows = (e) => {
+        const value = e.target.value.toLowerCase()
+        for(const tr of tableRows) {
+            const isVisible = tr.textContent.toLowerCase().includes(value)
+            tr.style.display = isVisible? "" : "none"
+        }
+    }
+
+    search.addEventListener('input', filterTableRows)
+})
